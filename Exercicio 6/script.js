@@ -1,12 +1,11 @@
 function Calcular() {
     // Declaração de variáveis
-    let totalPrestacoes = Number(document.getElementById("prestacoes").value)
-    let prestacoesPagas = Number(document.getElementById("quantidade").value)
-    let valorPrestacao = Number(document.getElementById("valor").value)
+    let nome = document.getElementById("nome").value
+    let nota1 = Number(document.getElementById("nota1").value)
+    let nota2 = Number(document.getElementById("nota2").value)
+    let nota3 = Number(document.getElementById("nota3").value)
 
-    let totalPago = prestacoesPagas * valorPrestacao
-    let saldoDevedor = totalPrestacoes * valorPrestacao - totalPago
-
-    document.getElementById("resultado").innerHTML = "Total pago: R$ " + totalPago + "<br>"
-    + "Saldo devedor: R$ " + saldoDevedor
+    let media = (nota1 + nota2 + nota3) / 3
+    document.getElementById("resultado").innerHTML = "O aluno '" + nome + "' está com média"
+    + " final " + media
 }

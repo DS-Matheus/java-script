@@ -14,6 +14,4 @@ function Calcular() {
     + "Subtração: " + subtracao + "<br>"                                                    //linha 3
     + "Multiplicação: " + multiplicacao + "<br>"                                            //linha 4
     + "Divisão: " + divisao                                                                 //linha 5
-
-    // console.log(`O resultado da operação ${numero1}+${numero2}*${numero3} é igual a: ${resultado}`)
 }

@@ -7,5 +7,4 @@ function Calcular() {
     let resultado = (numero1 + numero2) * numero3
 
     document.getElementById("resultado").innerHTML = "O resultado é " + resultado
-    // console.log(`O resultado da operação ${numero1}+${numero2}*${numero3} é igual a: ${resultado}`)
 }

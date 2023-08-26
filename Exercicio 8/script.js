@@ -9,5 +9,5 @@ function Calcular() {
 
     document.getElementById("resultado").innerHTML = "O vendedor '" + nome +"' deverá receber R$ "
     + vlrSalarioFixo +" como salário fixo, acrescido da sua comissão de R$ " + comissão
-    + " , totalizando o salário final de R$ " + salarioFinal
+    + " que totaliza o salário final de R$ " + salarioFinal
 }

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Exercicio 15</title>
+</head>
+<body>
+    <!-- Escreva um algoritmo que calcule a quantidade de latas de tinta necessárias e o custo para pintar
+    tanques cilíndricos de combustível, onde são fornecidos a altura (H) e o raio (R) desse cilidro.
+
+    Sabe-se que a lata de tinta anticorrosiva custa R$ 40,00, cada lata contém 5 litros e cada litro pinta
+    3 metros quadrados na média. Para que fique bem coberto de tinta, há necessidade de 2 demãos.
+
+    Portanto: 1) A lata de tinta custa 40,00; 2) Cada lata contém 5 litros; 3) A cada litro de tinta se
+    pinta 3 metros quadrados.
+    
+    Dados de entrada: altura (H) e raio (R). Dados de saída: custo (C) e quantidade (QTDE).
+    
+    Utilizando o planejamento reverso, sabemos que:
+    - Custo é dado por quantidade de latas * 40.00;
+    - Quantidade de latas é dada por quantidade total de litros/5;
+    - A quantidade total de litros é dada por área do cilindro/3*2;
+    - Área do cilindro é dada por área da base + área lateral;
+    - Área da base é (PI * R^2) * 2;
+    - A área lateral é altura * comprimento: (2 * PI * R * H);
+    - Sendo que R (raio) e H (altura) são dados de entrada e PI é uma constante de valor conhecido 3.14. -->
+    
+    <h1>Exercicio 15</h1>
+    
+    <input type="text" id="altura" placeholder="Valor de altura"> <br>
+    <input type="text" id="raio" placeholder="Valor do raio">
+
+    <h3 id="resultado"></h3>
+    <button onclick="Calcular()">Calcular</button>
+
+    <script src="script.js"></script>
+</body>
+</html>

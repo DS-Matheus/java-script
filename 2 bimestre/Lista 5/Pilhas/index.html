@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Navegador Simulado</title>
+</head>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    .botoes {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    button {
+        padding: 10px 20px;
+        margin: 0 10px;
+        cursor: pointer;
+    }
+
+    .sites {
+        background-color: #fff;
+        border-radius: 5px;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .sites h2 {
+        margin-top: 0;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <h1>Histórico de Navegação</h1>
+    
+        <div class="botoes">
+            <button onclick="home()">Home</button>
+            <button onclick="voltar()"><</button>
+            <button onclick="avancar()">></button>
+            <button onclick="abrirSite()">Novo Site</button>
+            <button onclick="novaAba()">Nova Aba</button>
+        </div>
+    
+        <div class="sites">
+            <h2>Site Atual:</h2>
+            <p id="siteAtual">Página Inicial</p>
+        </div>
+
+    </div>
+
+    <script>
+        let historico = ['Página Inicial']
+        let historicoVoltar = []
+       
+        function atualizarSiteAtual() {
+            const siteAtual = document.getElementById('siteAtual')
+            siteAtual.textContent = historico[historico.length - 1]
+        }
+ 
+        function home() {
+            historico.push("Página Inicial")
+            historicoVoltar = []
+            atualizarSiteAtual()
+        }
+
+        function voltar() {
+            if (historico.length > 1) {
+                const atual = historico.pop()
+                historicoVoltar.push(atual)
+                atualizarSiteAtual()
+            }
+        }
+
+        function avancar() {
+            if (historicoVoltar.length > 0) {
+                const proximo = historicoVoltar.pop()
+                historico.push(proximo)
+                atualizarSiteAtual()
+            }
+        }
+
+        function abrirSite() {
+            const novoSite = prompt('Digite o URL do novo site:')
+            if (novoSite) {
+                historico.push(novoSite)
+                historicoVoltar = []
+                atualizarSiteAtual()
+            }
+        }
+
+        function novaAba() {
+            historico = ["Página Inicial"]
+            historicoVoltar = []
+            atualizarSiteAtual()
+        }
+
+        atualizarSiteAtual()
+    </script>
+</body>
+</html>

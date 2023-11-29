@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gerenciador de Solicitações de Suporte</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            font-family: Arial, sans-serif;
+        }
+        
+        h1 {
+            text-align: center;
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+        
+        button {
+            margin: 5px;
+        }
+        
+        #listaPedidos {
+            list-style: none;
+            padding: 0;
+            text-align: center;
+            margin: 0;
+            margin-top: 20px;
+        }
+        
+        .pedido-atual {
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .popup-content {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .pedido-atual-container {
+            border: 2px solid #333;
+            padding: 10px;
+            margin-top: 20px;
+        }
+        .botoes {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gerenciador de Solicitações de Suporte</h1>
+
+    <div class="container">
+        <div class="botoes">
+            <button onclick="abrirPopup()">Criar Pedido</button>
+            <button onclick="concluirPedido()">Concluir Pedido</button>
+        </div>
+
+        <div class="pedido-atual-container">
+            <div class="pedido-atual">
+                <h2>Pedido Atual:</h2>
+                <p id="pedidoAtual">Nenhum pedido em processamento.</p>
+            </div>
+        </div>
+
+        <ul id="listaPedidos"></ul>
+
+        <div class="popup-overlay" id="popup">
+            <div class="popup-content">
+                <h2>Informe o motivo da solicitação:</h2>
+                <textarea id="motivo" rows="4" cols="50"></textarea>
+                
+                <div class="botoes">
+                    <button onclick="adicionarPedido()">Adicionar Pedido</button>
+                    <button onclick="fecharPopup()">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let pedidos = [];
+        let pedidoAtual = null;
+        let idPedido = 1;
+
+        function abrirPopup() {
+            const popup = document.getElementById('popup');
+            const motivoInput = document.getElementById('motivo');
+            
+            motivoInput.value = '';
+            popup.style.display = 'flex';
+        }
+
+        function fecharPopup() {
+            const popup = document.getElementById('popup');
+            popup.style.display = 'none';
+        }
+
+        function adicionarPedido() {
+            const motivo = document.getElementById('motivo').value;
+            
+            pedidos.push({ id: idPedido++, motivo: motivo });
+            pedidoAtual = pedidos[0];
+            
+            fecharPopup();
+            atualizarPedidoAtual();
+            atualizarLista();
+        }
+
+        function concluirPedido() {
+            if (pedidos.length > 0) {
+                pedidos.shift();
+                pedidoAtual = pedidos[0] || null;
+
+                atualizarPedidoAtual();
+                atualizarLista();
+            } else {
+                pedidoAtual = null;
+
+                atualizarPedidoAtual();
+                alert('Não há pedidos pendentes.');
+            }
+        }
+
+        function atualizarLista() {
+            const listaPedidos = document.getElementById('listaPedidos');
+            listaPedidos.innerHTML = '';
+
+            pedidos.forEach((pedido) => {
+                const itemLista = document.createElement('li');
+
+                itemLista.textContent = `Pedido ${pedido.id}: ${pedido.motivo}`;
+                listaPedidos.appendChild(itemLista);
+            });
+        }
+
+        function atualizarPedidoAtual() {
+            const pedidoAtualElement = document.getElementById('pedidoAtual');
+            
+            if (pedidoAtual) {
+                pedidoAtualElement.textContent = `(${pedidoAtual.id}): ${pedidoAtual.motivo}`;
+            } else {
+                pedidoAtualElement.textContent = 'Nenhum pedido em processamento.';
+            }
+        }
+    </script>
+</body>
+</html>

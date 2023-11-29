@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listas - Exercício 1</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        div {
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 8px 16px;
+            margin-right: 5px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        li {
+            background-color: #fff;
+            padding: 8px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Lista de Compras</h1>
+
+    <div>
+        <button onclick="adicionarItem()">+</button>
+        <button onclick="removerItem()">-</button>
+        <button onclick="pesquisarItem()">Pesquisar</button>
+    </div>
+
+    <ul id="listaCompras">
+        <li id="nenhumItem">Nenhum item adicionado</li>
+    </ul>
+
+    <script>
+        var lista = document.getElementById('listaCompras');
+        var nenhumItem = document.getElementById('nenhumItem');
+        var id = 0;
+        var registros = [];
+
+        function adicionarItem() {
+            let item = prompt("Digite o nome do item:").toUpperCase();
+            let quantidade = prompt("Digite a quantidade desejada:").toUpperCase();
+
+            if (item !== '' && quantidade !== '') {
+                id++; // Incrementando o ID
+                let registro = [id, item, quantidade];
+                registros.push(registro);
+                exibirRegistros();
+            }
+        }
+
+        function removerItem() {
+            let idRemover = parseInt(prompt("Digite o ID do item que deseja remover:"));
+
+            for (let i = 0; i < registros.length; i++) {
+                if (registros[i][0] === idRemover) {
+                    registros.splice(i, 1);
+                    exibirRegistros();
+                    return;
+                }
+            }
+
+            alert("Item com o ID especificado não encontrado.");
+        }
+
+        function pesquisarItem() {
+            let item = prompt("Digite o nome do item que deseja pesquisar:").toUpperCase();
+            let encontrado = false;
+
+            for (let i = 0; i < registros.length; i++) {
+                if (registros[i][1].toUpperCase().includes(item)) {
+                    alert(`ITEM ENCONTRADO: \n\nID: ${registros[i][0]} \nProduto: ${registros[i][1]} \nQuantidade: ${registros[i][2]}`);
+                    encontrado = true;
+                }
+            }
+            
+            if (!encontrado) {
+                alert(`Item "${item}" não encontrado!`);
+            }
+        }
+        
+        function exibirRegistros() {
+            lista.innerHTML = ''; // Limpa a lista antes de exibir os registros
+
+            if (registros.length === 0) {   // Caso não haja nenhum registro
+                lista.appendChild(nenhumItem);
+                return;
+            }
+
+            for (let i = 0; i < registros.length; i++) {
+                let registro = registros[i];
+                let entradaUsuario = document.createElement('li');
+                entradaUsuario.appendChild(document.createTextNode(`${registro[2]}x ${registro[1]}`));
+                lista.appendChild(entradaUsuario);
+            }
+        }
+    </script>
+</body>
+</html>

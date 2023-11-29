@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Árvores - Exercício 2</title>
+    <style>
+        button {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Estrutura de Pastas</h1>
+    <div id="arvore"></div>
+
+    <script>
+        class Diretorio {
+            constructor(nome) {
+                this.nome = nome
+                this.subpastas = []
+            }
+
+            adicionarSubpasta(subpasta) {
+                this.subpastas.push(subpasta)
+            }
+        }
+
+        let raiz = new Diretorio("Disco Local (C:)");
+
+        raiz.adicionarSubpasta(new Diretorio("Documentos"))
+        raiz.adicionarSubpasta(new Diretorio("Downloads"))
+        raiz.adicionarSubpasta(new Diretorio("Imagens"))
+        raiz.adicionarSubpasta(new Diretorio("Videos"))
+        raiz.adicionarSubpasta(new Diretorio("Musicas"))
+
+        // Documentos
+        raiz.subpastas[0].adicionarSubpasta(new Diretorio("PDFs"))
+        raiz.subpastas[0].adicionarSubpasta(new Diretorio("Apresentações"))
+        //Downloads
+        raiz.subpastas[1].adicionarSubpasta(new Diretorio("Torrents"))
+
+        function criarArvore(diretorio) {
+            const divArvore = document.getElementById("arvore")
+            divArvore.innerHTML = ""
+            exibirArvore(diretorio, divArvore)
+        }
+
+        function exibirArvore(diretorio, divArvore) {
+            const ul = document.createElement("ul")
+            const li = document.createElement("li")
+            li.textContent = diretorio.nome
+
+            const botao = document.createElement("button")
+            botao.textContent = "+"
+            botao.onclick = () => {
+                let novaSubpasta = prompt("Insira o nome da nova subpasta:")
+                if (novaSubpasta) {     // Testando se o valor digitado não é nulo
+                    diretorio.adicionarSubpasta(new Diretorio(novaSubpasta))
+                    criarArvore(raiz)
+                }
+            };
+
+            // Criar novos elementos filhos
+            li.appendChild(botao)
+            ul.appendChild(li)
+
+            if (diretorio.subpastas.length > 0) {
+                const subUl = document.createElement("ul")
+                diretorio.subpastas.forEach(subPasta => {
+                    exibirArvore(subPasta, subUl)   // Função recursiva que exibe cada subpasta de um diretorio
+                });
+                li.appendChild(subUl)
+            }
+
+            divArvore.appendChild(ul)
+        }
+
+        criarArvore(raiz)
+    </script>
+</body>
+</html>
